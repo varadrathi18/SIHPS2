@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SkillNavigator — Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .focus-outline:focus { outline: 3px solid rgba(59,130,246,0.35); outline-offset: 2px; }
+    .card-glow { box-shadow: 0 6px 20px rgba(59,130,246,0.06); }
+    .hover-row:hover { background-color: #f1f5f9; cursor: pointer; }
+  </style>
+</head>
+<body class="bg-gradient-to-b from-white to-slate-50 text-slate-800 min-h-screen">
+  <header class="bg-white shadow sticky top-0 z-30">
+    <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <div class="rounded-full bg-blue-700 w-10 h-10 flex items-center justify-center text-white font-semibold">SN</div>
+        <div>
+          <h1 class="text-xl font-semibold text-blue-800">SkillNavigator</h1>
+          <p class="text-sm text-slate-500">Admin Dashboard — Manage Success Stories</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="back-to-site" class="border border-blue-600 text-blue-600 px-3 py-2 rounded-md hover:bg-blue-50 focus-outline">View site</button>
+        <button id="logout" class="bg-red-600 text-white px-3 py-2 rounded-md focus-outline">Sign out</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-6 py-8 space-y-6">
+
+    <!-- Stats + AI insights -->
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="bg-white rounded-2xl p-5 card-glow border">
+          <div class="text-sm text-slate-500">Pending</div>
+          <div class="mt-2 text-2xl font-bold text-yellow-600" id="stat-pending">4</div>
+          <div class="text-xs text-slate-400 mt-1">Needs review</div>
+        </div>
+        <div class="bg-white rounded-2xl p-5 card-glow border">
+          <div class="text-sm text-slate-500">Approved</div>
+          <div class="mt-2 text-2xl font-bold text-green-600" id="stat-approved">12</div>
+          <div class="text-xs text-slate-400 mt-1">Visible to public</div>
+        </div>
+        <div class="bg-white rounded-2xl p-5 card-glow border">
+          <div class="text-sm text-slate-500">Deleted</div>
+          <div class="mt-2 text-2xl font-bold text-red-600" id="stat-deleted">1</div>
+          <div class="text-xs text-slate-400 mt-1">Removed items</div>
+        </div>
+      </div>
+
+      <aside class="bg-white rounded-2xl p-5 border space-y-3">
+        <h3 class="text-sm font-semibold text-blue-800">AI Insights — Trending Skills</h3>
+        <p class="text-xs text-slate-500 mt-1">Auto-extracted from recent submissions</p>
+        <ul class="space-y-2">
+          <li class="flex items-center justify-between">
+            <div>
+              <div class="text-sm font-medium">EV Charging Systems</div>
+              <div class="text-xs text-slate-400">High demand in urban regions</div>
+              <div class="text-xs text-slate-400 italic">Recommended: EV Maintenance Basics</div>
+            </div>
+            <div class="text-sm text-slate-600 font-semibold">92</div>
+          </li>
+          <li class="flex items-center justify-between">
+            <div>
+              <div class="text-sm font-medium">Data Analysis</div>
+              <div class="text-xs text-slate-400">Rising opportunities in services</div>
+              <div class="text-xs text-slate-400 italic">Recommended: Python Data Libraries</div>
+            </div>
+            <div class="text-sm text-slate-600 font-semibold">87</div>
+          </li>
+          <li class="flex items-center justify-between">
+            <div>
+              <div class="text-sm font-medium">Solar PV Installation</div>
+              <div class="text-xs text-slate-400">Steady government projects</div>
+              <div class="text-xs text-slate-400 italic">Recommended: Solar Safety Protocols</div>
+            </div>
+            <div class="text-sm text-slate-600 font-semibold">80</div>
+          </li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Table + bulk actions -->
+    <section class="bg-white rounded-2xl p-6 border space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-lg font-semibold text-blue-800">All Submissions</h2>
+        <div class="flex items-center gap-2">
+          <input id="search" placeholder="Search by name, location, course" class="px-3 py-2 rounded-md border w-64" />
+          <select id="filter-status" class="px-3 py-2 rounded-md border">
+            <option value="all">All statuses</option>
+            <option value="pending">Pending</option>
+            <option value="approved">Approved</option>
+            <option value="rejected">Rejected</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="flex gap-2 mb-2">
+        <button id="bulk-approve" class="px-3 py-1 bg-green-600 text-white rounded-md text-sm">Approve Selected</button>
+        <button id="bulk-reject" class="px-3 py-1 bg-yellow-500 text-white rounded-md text-sm">Reject Selected</button>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left table-auto">
+          <thead class="text-xs text-slate-500 uppercase">
+            <tr>
+              <th class="py-3 pr-6"><input type="checkbox" id="select-all"></th>
+              <th class="py-3 pr-6">Name</th>
+              <th class="py-3 pr-6">Location</th>
+              <th class="py-3 pr-6">Headline</th>
+              <th class="py-3 pr-6">Before</th>
+              <th class="py-3 pr-6">After</th>
+              <th class="py-3 pr-6">Status</th>
+              <th class="py-3 pr-6">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="table-body" class="text-sm">
+            <!-- rows injected by JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Audit log -->
+    <section class="bg-white rounded-2xl p-6 border">
+      <h2 class="text-lg font-semibold text-blue-800 mb-3">Audit Log</h2>
+      <ul id="audit-panel" class="text-sm text-slate-600 space-y-1"></ul>
+    </section>
+  </main>
+
+  <!-- Confirm modal -->
+  <div id="confirm-modal" class="fixed inset-0 bg-black/30 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-xl p-6 w-full max-w-md border">
+      <h4 class="text-lg font-semibold text-slate-800" id="confirm-title">Confirm action</h4>
+      <p class="text-sm text-slate-600 mt-2" id="confirm-desc">Are you sure?</p>
+      <div class="mt-4 flex justify-end gap-3">
+        <button id="confirm-cancel" class="px-4 py-2 rounded-md border">Cancel</button>
+        <button id="confirm-accept" class="px-4 py-2 rounded-md bg-red-600 text-white">Yes, proceed</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Details modal -->
+  <div id="details-modal" class="fixed inset-0 bg-black/30 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-xl p-6 w-full max-w-lg border space-y-3">
+      <h4 class="text-lg font-semibold text-slate-800" id="details-title">User Details</h4>
+      <div id="details-body" class="text-sm text-slate-600 space-y-2"></div>
+      <div class="flex justify-end">
+        <button onclick="closeDetails()" class="px-4 py-2 rounded-md border">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Dataset
+    const DATA = [
+      { id:1, name:'Anil', location:'Pimpri', headline:'Certified EV Charging Specialist', before:18000, after:45000, path:['Basic Electrical Safety','EV Fundamentals','EV Charging Systems (Cert.)'], status:'pending' },
+      { id:2, name:'Priya', location:'Nagpur', headline:'Data Analyst', before:22000, after:55000, path:['Excel for Beginners','Python for Data','Data Visualization'], status:'approved' },
+      { id:3, name:'Ramesh', location:'Nashik', headline:'Solar Technician', before:16000, after:40000, path:['Basic Electrical Safety','Solar PV Systems','Advanced Solar Installation'], status:'approved' },
+      { id:4, name:'Sita', location:'Pune', headline:'Medical Lab Technician', before:15000, after:38000, path:['Lab Basics','Sample Handling','Advanced Diagnostics'], status:'pending' },
+      { id:5, name:'Vikram', location:'Delhi', headline:'Network Technician', before:20000, after:47000, path:['Networking Foundations','Routing Basics','Network Troubleshooting'], status:'rejected' }
+    ];
+
+    let store = [...DATA];
+    let deletedCount = 1;
+    let auditLogs = [];
+
+    // DOM elements
+    const tableBody = document.getElementById('table-body');
+    const statPending = document.getElementById('stat-pending');
+    const statApproved = document.getElementById('stat-approved');
+    const statDeleted = document.getElementById('stat-deleted');
+    const confirmModal = document.getElementById('confirm-modal');
+    const confirmTitle = document.getElementById('confirm-title');
+    const confirmDesc = document.getElementById('confirm-desc');
+    const confirmAccept = document.getElementById('confirm-accept');
+    const confirmCancel = document.getElementById('confirm-cancel');
+    const detailsModal = document.getElementById('details-modal');
+    const detailsTitle = document.getElementById('details-title');
+    const detailsBody = document.getElementById('details-body');
+    const auditPanel = document.querySelector('#audit-panel');
+
+    function numberWithCommas(x){ return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+    function escapeHtml(s){ if(!s && s!==0) return ''; return String(s).replace(/[&<>\"']/g, function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[m]; }); }
+    function statusBadge(s){
+      if(s==='approved') return '<span class="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">Approved</span>';
+      if(s==='pending') return '<span class="px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">Pending</span>';
+      if(s==='rejected') return '<span class="px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800">Rejected</span>';
+      return '';
+    }
+
+    function renderTable(filterText = '', filterStatus = 'all'){
+      tableBody.innerHTML = '';
+      const rows = store.filter(r => {
+        const textMatch = (r.name+' '+r.location+' '+r.headline+' '+(r.path||[]).join(' ')).toLowerCase().includes(filterText.toLowerCase());
+        const statusMatch = filterStatus==='all'? true: r.status===filterStatus;
+        return textMatch && statusMatch;
+      });
+      rows.forEach(r=>{
+        const tr = document.createElement('tr');
+        tr.className='border-t hover-row';
+        tr.innerHTML=`
+          <td class="py-4 pr-6"><input type="checkbox" class="row-checkbox" data-id="${r.id}"></td>
+          <td class="py-4 pr-6">${escapeHtml(r.name)}</td>
+          <td class="py-4 pr-6">${escapeHtml(r.location)}</td>
+          <td class="py-4 pr-6">${escapeHtml(r.headline)}</td>
+          <td class="py-4 pr-6">₹${numberWithCommas(r.before)}</td>
+          <td class="py-4 pr-6">₹${numberWithCommas(r.after)}</td>
+          <td class="py-4 pr-6">${statusBadge(r.status)}</td>
+          <td class="py-4 pr-6">
+            <div class="flex gap-2">
+              ${r.status!=='approved'?`<button data-id="${r.id}" data-action="approve" class="px-3 py-1 rounded-md bg-green-600 text-white text-sm">Approve</button>`:''}
+              ${r.status!=='rejected'?`<button data-id="${r.id}" data-action="reject" class="px-3 py-1 rounded-md bg-yellow-500 text-white text-sm">Reject</button>`:''}
+              <button data-id="${r.id}" data-action="edit" class="px-3 py-1 rounded-md border text-sm">Edit</button>
+              <button data-id="${r.id}" data-action="delete" class="px-3 py-1 rounded-md border text-sm text-red-600">Delete</button>
+            </div>
+          </td>
+        `;
+        tr.addEventListener('click', e=>{
+          if(!e.target.closest('button') && !e.target.closest('input')) openDetails(r);
+        });
+        tableBody.appendChild(tr);
+      });
+      updateStats();
+    }
+
+    function updateStats(){
+      statPending.textContent = store.filter(s=>s.status==='pending').length;
+      statApproved.textContent = store.filter(s=>s.status==='approved').length;
+      statDeleted.textContent = deletedCount;
+    }
+
+    function openDetails(item){
+      detailsTitle.textContent = item.name+' — '+item.headline;
+      detailsBody.innerHTML=`
+        <p><strong>Location:</strong> ${item.location}</p>
+        <p><strong>Before Salary:</strong> ₹${numberWithCommas(item.before)}</p>
+        <p><strong>After Salary:</strong> ₹${numberWithCommas(item.after)}</p>
+        <p><strong>Path Taken:</strong> ${item.path.join(' → ')}</p>
+        <p><strong>Status:</strong> ${item.status}</p>
+      `;
+      detailsModal.classList.remove('hidden');
+    }
+    function closeDetails(){ detailsModal.classList.add('hidden'); }
+
+    // audit logs
+    function addAuditLog(action, name){
+      const now = new Date();
+      const timestamp = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+
+                        String(now.getDate()).padStart(2,'0')+' '+String(now.getHours()).padStart(2,'0')+
+                        ':'+String(now.getMinutes()).padStart(2,'0');
+      auditLogs.unshift(`[${timestamp}] Admin ${action} ${name}'s submission`);
+      renderAuditLogs();
+    }
+    function renderAuditLogs(){
+      auditPanel.innerHTML='';
+      auditLogs.slice(0,10).forEach(log=>{
+        const li=document.createElement('li');
+        li.textContent=log;
+        auditPanel.appendChild(li);
+      });
+    }
+
+    // delegate actions
+    let pendingAction=null;
+    document.addEventListener('click', e=>{
+      const btn = e.target.closest('button');
+      if(!btn) return;
+      const action = btn.getAttribute('data-action');
+      const id = Number(btn.getAttribute('data-id'));
+      if(action==='approve') return openConfirm('approve', id);
+      if(action==='reject') return openConfirm('reject', id);
+      if(action==='delete') return openConfirm('delete', id);
+      if(action==='edit') return openEdit(id);
+    });
+
+    function openEdit(id){
+      const item = store.find(s=>s.id===id);
+      if(!item) return alert('Item not found');
+      const newHeadline = prompt('Edit headline', item.headline);
+      if(newHeadline!==null){ item.headline=newHeadline; renderTable(); alert('Saved (demo only)'); }
+    }
+
+    function openConfirm(type,id){
+      pendingAction={type,id};
+      confirmModal.classList.remove('hidden');
+      if(type==='approve'){ confirmTitle.textContent='Approve submission'; confirmDesc.textContent='Approve this submission and make it visible to the public?'; confirmAccept.textContent='Approve'; confirmAccept.className='px-4 py-2 rounded-md bg-green-600 text-white'; }
+      if(type==='reject'){ confirmTitle.textContent='Reject submission'; confirmDesc.textContent='Reject this submission. The user will be notified (demo).'; confirmAccept.textContent='Reject'; confirmAccept.className='px-4 py-2 rounded-md bg-yellow-600 text-white'; }
+      if(type==='delete'){ confirmTitle.textContent='Delete permanently'; confirmDesc.textContent='This will permanently delete the submission from the website.'; confirmAccept.textContent='Delete'; confirmAccept.className='px-4 py-2 rounded-md bg-red-600 text-white'; }
+    }
+
+    confirmCancel.addEventListener('click', ()=>{ confirmModal.classList.add('hidden'); pendingAction=null; });
+    confirmAccept.addEventListener('click', ()=>{
+      if(!pendingAction) return;
+      const {type,id}=pendingAction;
+      const idx=store.findIndex(s=>s.id===id);
+      if(idx===-1){ alert('Item not found'); confirmModal.classList.add('hidden'); return; }
+      let actionText='';
+      if(type==='approve'){ store[idx].status='approved'; actionText='approved'; }
+      if(type==='reject'){ store[idx].status='rejected'; actionText='rejected'; }
+      if(type==='delete'){ store.splice(idx,1); deletedCount+=1; actionText='deleted'; }
+      addAuditLog(actionText, DATA.find(d=>d.id===id).name);
+      renderTable();
+      confirmModal.classList.add('hidden');
+      pendingAction=null;
+    });
+
+    // search & filter
+    document.getElementById('search').addEventListener('input', e=> renderTable(e.target.value, document.getElementById('filter-status').value));
+    document.getElementById('filter-status').addEventListener('change', e=> renderTable(document.getElementById('search').value, e.target.value));
+
+    // select all
+    document.getElementById('select-all').addEventListener('change', e=>{
+      document.querySelectorAll('.row-checkbox').forEach(cb=>cb.checked=e.target.checked);
+    });
+
+    // bulk actions
+    document.getElementById('bulk-approve').addEventListener('click', ()=>{
+      document.querySelectorAll('.row-checkbox:checked').forEach(cb=>{
+        const id=Number(cb.dataset.id);
+        const idx=store.findIndex(s=>s.id===id);
+        if(idx!==-1){ store[idx].status='approved'; addAuditLog('approved', DATA.find(d=>d.id===id).name); }
+      });
+      renderTable();
+    });
+    document.getElementById('bulk-reject').addEventListener('click', ()=>{
+      document.querySelectorAll('.row-checkbox:checked').forEach(cb=>{
+        const id=Number(cb.dataset.id);
+        const idx=store.findIndex(s=>s.id===id);
+        if(idx!==-1){ store[idx].status='rejected'; addAuditLog('rejected', DATA.find(d=>d.id===id).name); }
+      });
+      renderTable();
+    });
+
+    // init
+    renderTable();
+    renderAuditLogs();
+  </script>
+</body>
+</html>

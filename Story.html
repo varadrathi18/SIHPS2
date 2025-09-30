@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SkillNavigator — Success Stories</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .timeline-step { height: 8px; width: 8px; border-radius: 9999px; }
+    .focus-outline:focus { outline: 3px solid rgba(59,130,246,0.4); outline-offset: 2px; }
+  </style>
+</head>
+<body class="bg-gradient-to-b from-white to-slate-50 text-slate-800 min-h-screen">
+  <header class="bg-white shadow sticky top-0 z-30">
+    <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <div class="rounded-full bg-blue-700 w-10 h-10 flex items-center justify-center text-white font-semibold">SN</div>
+        <div>
+          <h1 class="text-xl font-semibold text-blue-800">SkillNavigator</h1>
+          <p class="text-sm text-slate-500">Success Stories — Real learners, real outcomes</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <button id="open-submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md focus-outline">Share your story</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 py-10">
+    <section class="mb-8">
+      <div class="bg-gradient-to-r from-blue-50 to-white p-6 rounded-2xl shadow-sm">
+        <div class="md:flex md:items-center md:justify-between">
+          <div>
+            <h2 class="text-2xl font-bold text-blue-800">See how learning paths change lives</h2>
+            <p class="mt-2 text-slate-600">AI-powered recommendations + verified results. Each profile links back to the exact SkillNavigator path they followed.</p>
+          </div>
+          <div class="mt-4 md:mt-0 text-slate-600 text-sm">
+            <p>✨ Smart AI Matching: We analyze your background & suggest optimal learning paths.</p>
+            <p>📊 AI Insights: Personalized projections on income growth and skills demand.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cards grid -->
+    <section id="cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Card 1 -->
+      <article class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+        <div class="flex gap-4">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop" alt="Anil at work" class="w-28 h-28 rounded-lg object-cover border" />
+          <div class="flex-1">
+            <h3 class="text-lg font-semibold text-blue-800">Anil — Certified EV Charging Specialist</h3>
+            <p class="text-sm text-slate-500">Pimpri • Electrician → EV Specialist</p>
+            <div class="mt-3 text-slate-700">
+              <p><strong>Before:</strong> ₹18,000 / month</p>
+              <p><strong>After:</strong> ₹45,000 / month</p>
+            </div>
+          </div>
+        </div>
+        <blockquote class="mt-4 border-l-4 border-blue-100 pl-4 italic text-slate-600">“I never thought I could work with electric cars. SkillNavigator showed me the exact steps to take. It changed my family's future.”</blockquote>
+        <div class="mt-4">
+          <div class="text-sm text-slate-500 mb-2">Path taken</div>
+          <ol class="flex items-center justify-between">
+            <li class="flex items-center gap-2"><div class="timeline-step bg-blue-600"></div><span class="text-sm">Basic Electrical Safety</span></li>
+            <li class="flex items-center gap-2"><div class="timeline-step bg-blue-600"></div><span class="text-sm">EV Fundamentals</span></li>
+            <li class="flex items-center gap-2"><div class="timeline-step bg-blue-600"></div><span class="text-sm">EV Charging Systems (Cert.)</span></li>
+          </ol>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+        <div class="flex gap-4">
+          <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&auto=format&fit=crop" alt="Priya" class="w-28 h-28 rounded-lg object-cover border" />
+          <div class="flex-1">
+            <h3 class="text-lg font-semibold text-blue-800">Priya — Data Analyst</h3>
+            <p class="text-sm text-slate-500">Nagpur • Clerk → Data Analyst</p>
+            <div class="mt-3 text-slate-700">
+              <p><strong>Before:</strong> ₹22,000 / month</p>
+              <p><strong>After:</strong> ₹55,000 / month</p>
+            </div>
+          </div>
+        </div>
+        <blockquote class="mt-4 border-l-4 border-blue-100 pl-4 italic text-slate-600">“AI-powered learning suggested exactly the right data skills for me. Now I work at a top IT firm.”</blockquote>
+        <div class="mt-4">
+          <div class="text-sm text-slate-500 mb-2">Path taken</div>
+          <ol class="flex items-center justify-between">
+            <li class="flex items-center gap-2"><div class="timeline-step bg-blue-600"></div><span class="text-sm">Excel for Beginners</span></li>
+            <li class="flex items-center gap-2"><div class="timeline-step bg-blue-600"></div><span class="text-sm">Python for Data</span></li>
+            <li class="flex items-center gap-2"><div class="timeline-step bg-blue-600"></div><span class="text-sm">Data Visualization</span></li>
+          </ol>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+        <div class="flex gap-4">
+          <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=400&auto=format&fit=crop" alt="Ramesh" class="w-28 h-28 rounded-lg object-cover border" />
+          <div class="flex-1">
+            <h3 class="text-lg font-semibold text-blue-800">Ramesh — Solar Technician</h3>
+            <p class="text-sm text-slate-500">Nashik • Wireman → Solar Tech</p>
+            <div class="mt-3 text-slate-700">
+              <p><strong>Before:</strong> ₹16,000 / month</p>
+              <p><strong>After:</strong> ₹40,000 / month</p>
+            </div>
+          </div>
+        </div>
+        <blockquote class="mt-4 border-l-4 border-blue-100 pl-4 italic text-slate-600">“The AI assistant guided me step by step. It felt like having a personal mentor always available.”</blockquote>
+        <div class="mt-4">
+          <div class="text-sm text-slate-500 mb-2">Path taken</div>
+          <ol class="flex items-center justify-between">
+            <li class="flex items-center gap-2"><div class="timeline-step bg-blue-600"></div><span class="text-sm">Basic Electrical Safety</span></li>
+            <li class="flex items-center gap-2"><div class="timeline-step bg-blue-600"></div><span class="text-sm">Solar PV Systems</span></li>
+            <li class="flex items-center gap-2"><div class="timeline-step bg-blue-600"></div><span class="text-sm">Advanced Solar Installation</span></li>
+          </ol>
+        </div>
+      </article>
+    </section>
+
+    <!-- Empty state / CTA -->
+    <section class="mt-8">
+      <div class="rounded-lg border border-dashed border-slate-200 p-6 text-center">
+        <p class="text-slate-600">Have a success story to share? Click <span class="font-medium text-blue-700">Share your story</span> to add it — submissions will be reviewed by the admin.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Submit / Edit Modal -->
+  <div id="modal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-40">
+    <div class="bg-white rounded-xl w-full max-w-2xl p-6 shadow-2xl">
+      <div class="flex items-start justify-between">
+        <h3 class="text-lg font-semibold text-blue-800">Share your success story</h3>
+        <button id="modal-close" class="text-slate-500 hover:text-slate-700">✕</button>
+      </div>
+      <form id="story-form" class="mt-4 grid grid-cols-1 gap-3">
+        <label class="text-sm">Full name <span class="text-red-600">*</span>
+          <input name="name" required class="mt-1 w-full rounded-md border px-3 py-2" />
+        </label>
+        <label class="text-sm">Location
+          <input name="location" class="mt-1 w-full rounded-md border px-3 py-2" />
+        </label>
+        <div class="grid grid-cols-2 gap-3">
+          <label class="text-sm">Before salary (₹)
+            <input name="before" type="number" class="mt-1 w-full rounded-md border px-3 py-2" />
+          </label>
+          <label class="text-sm">After salary (₹)
+            <input name="after" type="number" class="mt-1 w-full rounded-md border px-3 py-2" />
+          </label>
+        </div>
+        <label class="text-sm">Role / Headline
+          <input name="headline" class="mt-1 w-full rounded-md border px-3 py-2" />
+        </label>
+        <label class="text-sm">Quote
+          <input name="quote" class="mt-1 w-full rounded-md border px-3 py-2" placeholder="Short impactful sentence" />
+        </label>
+        <label class="text-sm">Path (comma separated courses)
+          <input name="path" class="mt-1 w-full rounded-md border px-3 py-2" />
+        </label>
+        <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="consent" /> I agree to have my story reviewed and published by SkillNavigator.</label>
+        <div class="flex justify-end gap-3 mt-2">
+          <button type="button" id="modal-cancel" class="px-4 py-2 rounded-md border">Cancel</button>
+          <button type="submit" class="px-4 py-2 rounded-md bg-blue-600 text-white">Submit for review</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const openSubmit = document.getElementById('open-submit');
+    const modal = document.getElementById('modal');
+    const modalClose = document.getElementById('modal-close');
+    const modalCancel = document.getElementById('modal-cancel');
+    openSubmit.addEventListener('click', ()=> modal.classList.remove('hidden'));
+    modalClose.addEventListener('click', ()=> modal.classList.add('hidden'));
+    modalCancel.addEventListener('click', ()=> modal.classList.add('hidden'));
+  </script>
+</body>
+</html>
